@@ -2,25 +2,25 @@ from src.arcade import tool_manager, model_with_tools
 from langgraph.graph import END, MessagesState
 
 
-# Function to invoke the model and get a response
+# Função para invocar o modelo de linguagem e obter uma resposta
 def call_agent(state: MessagesState):
     messages = state["messages"]
     response = model_with_tools.invoke(messages)
-    # Return the updated message history
+    # Retorna o histórico atualizado de mensagens
     return {"messages": [response]}
 
 
-# Function to determine the next step in the workflow based on the last message
+# Essa função irá inspecionar a resposta do agente e retornar uma string: "authorization", "tools", ou "END".
 def should_continue(state: MessagesState):
     if state["messages"][-1].tool_calls:
         for tool_call in state["messages"][-1].tool_calls:
             if tool_manager.requires_auth(tool_call["name"]):
                 return "authorization"
-        return "tools"  # Proceed to tool execution if no authorization is needed
-    return END  # End the workflow if no tool calls are present
+        return "tools"  # Prossiga para a execução da ferramenta se nenhuma autorização for necessária
+    return END  # Termine o fluxo de trabalho se nenhuma ferramenta estiver presente
 
 
-# Function to handle authorization for tools that require it
+# Função para lidar com a autorização para ferramentas que exigem isso
 def authorize(state: MessagesState, config: dict):
     user_id = config["configurable"].get("user_id")
     for tool_call in state["messages"][-1].tool_calls:
@@ -29,13 +29,13 @@ def authorize(state: MessagesState, config: dict):
             continue
         auth_response = tool_manager.authorize(tool_name, user_id)
         if auth_response.status != "completed":
-            # Prompt the user to visit the authorization URL
+            # Solicite ao usuário que visite a URL para autorização
             print(f"Visit the following URL to authorize: {auth_response.url}")
 
-            # Wait for the user to complete the authorization
-            # and then check the authorization status again
+            # Aguarde o usuário concluir a autorização
+            # e depois verifique o status da autorização novamente
             tool_manager.wait_for_auth(auth_response.id)
             if not tool_manager.is_authorized(auth_response.id):
-                # This stops execution if authorization fails
+                # Interrompe a execução se a autorização falhar
                 raise ValueError("Authorization failed")
     return {"messages": []}
