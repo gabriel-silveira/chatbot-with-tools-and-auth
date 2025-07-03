@@ -4,9 +4,6 @@
 
 Este projeto é um *assistente de IA* que pode interagir com seu **Gmail** para realizar tarefas. Você simplesmente digita um comando, como "resuma meus últimos e-mails", e o assistente entende o que fazer. Se for necessário, ele pedirá sua *permissão* para acessar o Gmail de forma segura. Todo o processo é orquestrado por um *fluxo de trabalho inteligente* que garante que cada passo seja executado na ordem correta.
 
-
-**Source Repository:** [None](None)
-
 ```mermaid
 flowchart TD
     A0["Grafo de Fluxo de Trabalho
