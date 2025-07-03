@@ -3,7 +3,8 @@ from src.workflow import get_workflow
 
 
 def get_graph():
-  # Obtém o workflow
+  """Obtém o grafo compilado"""
+
   workflow = get_workflow()
 
   # Cria uma instância do nosso "salvador de memória"

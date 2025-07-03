@@ -5,6 +5,8 @@ from langgraph.graph import END, START, MessagesState, StateGraph
 
 
 def get_workflow():
+  """Obtém o workflow (nós e arestas)"""
+
   # Cria um novo grafo de fluxo de trabalho.
   # Ele sabe que vai gerenciar um estado do tipo MessagesState.
   workflow = StateGraph(MessagesState)
@@ -22,8 +24,8 @@ def get_workflow():
   # Após o nó "agent", chame a função should_continue para decidir o próximo passo.
   workflow.add_conditional_edges(
     "agent",
-    should_continue,
-    ["authorization", "tools", END],
+    should_continue, # A função que toma a decisão
+    ["authorization", "tools", END], # Os destinos possíveis
   )
 
   # Se o fluxo for para "authorization", o próximo passo deve ser "tools".

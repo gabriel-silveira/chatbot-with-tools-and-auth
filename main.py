@@ -2,23 +2,38 @@ from src.graph import get_graph
 
 
 if __name__ == "__main__":
-  # Obtém o grafo
   graph = get_graph()
 
-  # Define as mensagens de entrada do usuário
-  inputs = {
-    "messages": [
-      {
-        "role": "user",
-        "content": "Summarize my latest 3 emails.",
+  # Loop para aguardar input do usuário
+  while True:
+    try:
+      print("\nDigite sua mensagem (ou 'sair' para encerrar): ")
+      user_input = input("> ")
+      
+      if user_input.lower() == 'sair':
+        print("Encerrando o chat...")
+        break
+      
+      # Define as mensagens com o input do usuário
+      inputs = {
+        "messages": [
+          {
+            "role": "user",
+            "content": user_input,
+          }
+        ],
       }
-    ],
-  }
-  
-  # Configuração com IDs de encadeamento e usuário para fins de autorização
-  config = {"configurable": {"thread_id": "123456", "user_id": "gabrielsilveira.web@gmail.com"}}
-  
-  # Executa o grafo e transmite as saídas.
-  for chunk in graph.stream(inputs, config=config, stream_mode="values"):
-    # Pretty-print da última mensagem no chunk
-    chunk["messages"][-1].pretty_print()
+      
+      # Configuração com IDs de encadeamento e usuário para fins de autorização
+      config = {"configurable": {"thread_id": "123456", "user_id": "gabrielsilveira.web@gmail.com"}}
+      
+      # Executa o grafo e transmite as saídas.
+      for chunk in graph.stream(inputs, config=config, stream_mode="values"):
+        # Pretty-print da última mensagem no chunk
+        chunk["messages"][-1].pretty_print()
+        
+    except KeyboardInterrupt:
+      print("\nPrograma interrompido pelo usuário.")
+      break
+    except Exception as e:
+      print(f"\nErro: {e}")
