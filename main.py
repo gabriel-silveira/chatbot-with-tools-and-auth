@@ -1,3 +1,14 @@
+"""
+Este é um agente que pode usar ferramentas para resolver problemas.
+Neste exemplo, vamos utilizar a ferramenta de email do Google, o Gmail.
+
+Exemplo de mensagem: "Faça um resumo dos meus últimos 3 e-mails não lidos"
+
+Para autorizar a ferramenta, você precisará visitar a URL que será exibida no console.
+Depois de autorizar, a ferramenta poderá ser usada normalmente.
+
+Para encerrar o chat, digite 'sair'.
+"""
 from src.graph import get_graph
 
 

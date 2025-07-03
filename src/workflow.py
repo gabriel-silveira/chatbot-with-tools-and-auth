@@ -1,6 +1,6 @@
 
 from src.agents import call_agent, should_continue, authorize
-from src.arcade import tool_node
+from src.tools import tool_node
 from langgraph.graph import END, START, MessagesState, StateGraph
 
 
