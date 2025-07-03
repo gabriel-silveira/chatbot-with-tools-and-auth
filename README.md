@@ -1,4 +1,6 @@
-# Tutorial: Arcade Gmail Tool with Auth
+# Tutorial: Chatbot com ferramentas e autorização
+
+### Um agente de IA pode usar ferramentas do Google e solicita sua autorização caso seja necessário.
 
 Este projeto é um *assistente de IA* que pode interagir com seu **Gmail** para realizar tarefas. Você simplesmente digita um comando, como "resuma meus últimos e-mails", e o assistente entende o que fazer. Se for necessário, ele pedirá sua *permissão* para acessar o Gmail de forma segura. Todo o processo é orquestrado por um *fluxo de trabalho inteligente* que garante que cada passo seja executado na ordem correta.
 
