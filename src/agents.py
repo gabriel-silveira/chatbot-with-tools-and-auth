@@ -1,11 +1,12 @@
-from src.arcade import tool_manager, model_with_tools
+from src.arcade import tool_manager
 from langgraph.graph import END, MessagesState
+from src.llm import llm_with_tools
 
 
 # Função para invocar o modelo de linguagem e obter uma resposta
 def call_agent(state: MessagesState):
     messages = state["messages"]
-    response = model_with_tools.invoke(messages)
+    response = llm_with_tools.invoke(messages)
 
     # Retorna o histórico atualizado de mensagens
     return {"messages": [response]}
