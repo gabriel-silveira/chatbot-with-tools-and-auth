@@ -1,46 +1,51 @@
-# Tutorial: Arcade Gmail Tool with Auth
+# Tutorial: Chatbot with Arcade Tool and authorization process
 
-Este projeto cria um *assistente inteligente* que entende seus pedidos em linguagem natural, como "resuma meus últimos e-mails". Ele utiliza um **Grafo de Fluxo de Trabalho** para organizar as tarefas de forma lógica, decidindo quando usar *ferramentas* externas para acessar o Gmail e quando pedir sua permissão de acesso. O sistema prioriza a segurança, garantindo que só acessa seus dados após sua autorização explícita, gerenciando toda a conversa para não perder o contexto.
+Este projeto cria um **chatbot inteligente** que não apenas conversa, mas também pode usar *ferramentas externas*, como fazer uma pesquisa no Google. O sistema é organizado como um *fluxograma* (ou "Grafo"), que decide o que fazer a cada passo. Para garantir a segurança, o chatbot pede sua **autorização** antes de usar ferramentas que acessam suas informações, garantindo uma interação controlada e poderosa.
 
 
 **Source Repository:** [None](None)
 
 ```mermaid
 flowchart TD
-    A0["Grafo de Fluxo de Trabalho
+    A0["Grafo de Fluxo de Trabalho (Workflow)
 "]
-    A1["Agente Inteligente
+    A1["Agente de IA (O Cérebro)
 "]
-    A2["Gerenciador de Ferramentas Arcade
+    A2["Caixa de Ferramentas (Integração Arcade)
 "]
-    A3["Fluxo de Autorização de Acesso
+    A3["Roteador de Decisões (`should_continue`)
 "]
-    A4["Roteador de Decisões
+    A4["Guardião de Autorização (`authorize`)
 "]
-    A5["Gerenciamento de Estado da Conversa
+    A5["Memória da Conversa (`MessagesState` e `MemorySaver`)
 "]
-    A0 -- "Invoca para pensar" --> A1
-    A0 -- "Usa para decidir o próximo ..." --> A4
-    A1 -- "Atualiza o estado com sua r..." --> A5
-    A4 -- "Direciona para autorização" --> A3
-    A4 -- "Consulta se a ferramenta ex..." --> A2
-    A3 -- "Usa para obter link de auto..." --> A2
+    A6["Ponto de Entrada e Interação com Usuário
+"]
+    A6 -- "Executa o fluxo de trabalho" --> A0
+    A0 -- "Gerencia a persistência do ..." --> A5
+    A5 -- "Fornece o contexto da conversa" --> A1
+    A1 -- "Fornece decisão para roteam..." --> A3
+    A3 -- "Direciona para obter autori..." --> A4
+    A4 -- "Solicita permissão para a f..." --> A2
+    A2 -- "Fornece nó para executar fe..." --> A0
 ```
 
 ## Chapters
 
-1. [Agente Inteligente
-](01_agente_inteligente_.md)
-2. [Gerenciamento de Estado da Conversa
-](02_gerenciamento_de_estado_da_conversa_.md)
-3. [Grafo de Fluxo de Trabalho
-](03_grafo_de_fluxo_de_trabalho_.md)
-4. [Roteador de Decisões
-](04_roteador_de_decisões_.md)
-5. [Gerenciador de Ferramentas Arcade
-](05_gerenciador_de_ferramentas_arcade_.md)
-6. [Fluxo de Autorização de Acesso
-](06_fluxo_de_autorização_de_acesso_.md)
+1. [Ponto de Entrada e Interação com Usuário
+](01_ponto_de_entrada_e_interação_com_usuário_.md)
+2. [Agente de IA (O Cérebro)
+](02_agente_de_ia__o_cérebro__.md)
+3. [Memória da Conversa (`MessagesState` e `MemorySaver`)
+](03_memória_da_conversa___messagesstate__e__memorysaver___.md)
+4. [Caixa de Ferramentas (Integração Arcade)
+](04_caixa_de_ferramentas__integração_arcade__.md)
+5. [Grafo de Fluxo de Trabalho (Workflow)
+](05_grafo_de_fluxo_de_trabalho__workflow__.md)
+6. [Roteador de Decisões (`should_continue`)
+](06_roteador_de_decisões___should_continue___.md)
+7. [Guardião de Autorização (`authorize`)
+](07_guardião_de_autorização___authorize___.md)
 
 
 ---
